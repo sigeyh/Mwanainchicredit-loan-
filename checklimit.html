@@ -39,25 +39,62 @@
       class="mt-6 bg-blue-900 hover:bg-blue-800 text-white font-semibold py-2 px-6 rounded-lg transition">
       Continue
     </button>
+    
+    <!-- Reset Button (for testing only) -->
+    <button onclick="resetLoan()" 
+      class="mt-4 text-xs text-blue-600 hover:text-blue-800 underline">
+      Reset Loan (For Testing)
+    </button>
   </div>
 
   <script>
-    // Generate random loan limit between 850 and 1600
+    // Constants
     const minLoan = 850;
     const maxLoan = 1600;
     const fixedServiceFee = 50; // Fixed service fee in Ksh
     
-    // Generate random loan amount between min and max
-    let loanLimit = Math.floor(Math.random() * (maxLoan - minLoan + 1)) + minLoan;
+    // Function to generate a random loan amount
+    function generateLoanAmount() {
+      return Math.floor(Math.random() * (maxLoan - minLoan + 1)) + minLoan;
+    }
     
-    // Calculate service fee percentage
-    let serviceFeePercentage = ((fixedServiceFee / loanLimit) * 100).toFixed(1);
+    // Function to calculate service fee percentage
+    function calculateServiceFeePercentage(loanAmount) {
+      return ((fixedServiceFee / loanAmount) * 100).toFixed(1);
+    }
     
-    // Store loan limit and service fee
-    localStorage.setItem('loanLimit', loanLimit);
-    localStorage.setItem('serviceFee', fixedServiceFee);
-    localStorage.setItem('serviceFeePercentage', serviceFeePercentage);
-
+    // Function to reset loan (for testing)
+    function resetLoan() {
+      localStorage.removeItem('loanLimit');
+      localStorage.removeItem('serviceFee');
+      localStorage.removeItem('serviceFeePercentage');
+      location.reload();
+    }
+    
+    // Main logic - Check if loan already exists in localStorage
+    let loanLimit;
+    let serviceFeePercentage;
+    
+    // Check if we already have a stored loan amount
+    const storedLoanLimit = localStorage.getItem('loanLimit');
+    const storedServiceFee = localStorage.getItem('serviceFee');
+    const storedServiceFeePercentage = localStorage.getItem('serviceFeePercentage');
+    
+    if (storedLoanLimit && storedServiceFee && storedServiceFeePercentage) {
+      // Use existing loan amount from storage
+      loanLimit = parseInt(storedLoanLimit);
+      serviceFeePercentage = storedServiceFeePercentage;
+    } else {
+      // Generate new loan amount and store it
+      loanLimit = generateLoanAmount();
+      serviceFeePercentage = calculateServiceFeePercentage(loanLimit);
+      
+      // Store in localStorage for persistence
+      localStorage.setItem('loanLimit', loanLimit);
+      localStorage.setItem('serviceFee', fixedServiceFee);
+      localStorage.setItem('serviceFeePercentage', serviceFeePercentage);
+    }
+    
     // Show loading, then approval
     setTimeout(() => {
       document.getElementById('loadingScreen').classList.add('hidden');
