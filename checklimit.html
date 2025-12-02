@@ -26,7 +26,8 @@
     </p>
     <p id="loanLimit" class="text-3xl font-extrabold text-orange-500 mt-1">Ksh 0</p>
     <p class="mt-2 text-sm text-gray-600">
-      Service Fee: <span class="font-semibold">6.2%</span>
+      Service Fee: <span id="serviceFeeAmount" class="font-semibold">Ksh 50</span>
+      (<span id="serviceFeePercent" class="font-semibold">0%</span>)
     </p>
     <p class="mt-4">
       Your loan request has been evaluated and approved. You can now proceed to select your desired amount, 
@@ -41,24 +42,28 @@
   </div>
 
   <script>
-    // Generate random loan limit with 80% chance below 5000
-    const minLoan = 1800;
-    const maxLoan = 7500;
-    let loanLimit;
-    if (Math.random() < 0.8) {
-      loanLimit = Math.floor(Math.random() * (5000 - minLoan + 1)) + minLoan;
-    } else {
-      loanLimit = Math.floor(Math.random() * (maxLoan - 5000 + 1)) + 5000;
-    }
-
-    // Store loan limit
+    // Generate random loan limit between 850 and 1600
+    const minLoan = 850;
+    const maxLoan = 1600;
+    const fixedServiceFee = 50; // Fixed service fee in Ksh
+    
+    // Generate random loan amount between min and max
+    let loanLimit = Math.floor(Math.random() * (maxLoan - minLoan + 1)) + minLoan;
+    
+    // Calculate service fee percentage
+    let serviceFeePercentage = ((fixedServiceFee / loanLimit) * 100).toFixed(1);
+    
+    // Store loan limit and service fee
     localStorage.setItem('loanLimit', loanLimit);
+    localStorage.setItem('serviceFee', fixedServiceFee);
+    localStorage.setItem('serviceFeePercentage', serviceFeePercentage);
 
     // Show loading, then approval
     setTimeout(() => {
       document.getElementById('loadingScreen').classList.add('hidden');
       document.getElementById('approvalMessage').classList.remove('hidden');
       document.getElementById('loanLimit').textContent = `Ksh ${loanLimit.toLocaleString()}`;
+      document.getElementById('serviceFeePercent').textContent = `${serviceFeePercentage}%`;
     }, 2500);
   </script>
 
