@@ -17,24 +17,6 @@
       -webkit-appearance: none;
       margin: 0;
     }
-    /* Custom slider styles */
-    input[type="range"] {
-      -webkit-appearance: none;
-      height: 8px;
-      border-radius: 5px;
-      background: #e5e7eb;
-      outline: none;
-    }
-    input[type="range"]::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      background: #f58220;
-      cursor: pointer;
-      border: 3px solid white;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-    }
   </style>
 </head>
 <body class="gradient-bg min-h-screen flex items-center justify-center p-4">
@@ -53,24 +35,13 @@
       </div>
     </div>
 
-    <!-- Loan Slider Section -->
-    <div class="mb-6 p-4 bg-blue-50 rounded-xl">
-      <div class="flex justify-between items-center mb-2">
-        <label class="block font-semibold text-gray-700">Select Loan Amount</label>
-   
+    <!-- Loan Amount Display -->
+    <div class="mb-6 p-6 bg-blue-50 rounded-xl border-2 border-blue-100 text-center">
+      <p class="text-gray-700 font-medium mb-2">Approved Loan Amount</p>
+      <div class="text-4xl font-bold text-[#002147] mb-2">
+        Ksh <span id="loanAmount">0</span>
       </div>
-      
-      <input type="range" id="loanAmountSlider" min="850" max="1600" value="850" 
-             class="w-full h-2 mb-4" step="50">
-      
-      <div class="text-center">
-        <div class="text-3xl font-bold text-[#002147] mb-1">
-          Ksh <span id="loanAmount">850</span>
-        </div>
-        <div class="text-sm text-gray-500">
-          Approved limit: Ksh <span id="approvedLimit">1600</span>
-        </div>
-      </div>
+      <p class="text-sm text-gray-500">This is your approved loan limit</p>
     </div>
 
     <!-- Loan Details Card -->
@@ -82,13 +53,13 @@
           <div>
             <span class="text-gray-700">Principal Amount</span>
           </div>
-          <span class="font-medium">Ksh <span id="principalAmount">850</span></span>
+          <span class="font-medium">Ksh <span id="principalAmount">0</span></span>
         </div>
         
         <div class="flex justify-between items-center py-2 border-b border-gray-200">
           <div>
             <span class="text-gray-700">Service Fee</span>
-            <span class="text-sm text-gray-500 ml-2">(<span id="serviceFeePercent">5.9</span>%)</span>
+            <span class="text-sm text-gray-500 ml-2">(<span id="serviceFeePercent">0</span>%)</span>
           </div>
           <span class="font-medium text-[#f58220]">Ksh <span id="serviceFee">50</span></span>
         </div>
@@ -98,12 +69,12 @@
             <span class="text-gray-700">Interest</span>
             <span class="text-sm text-gray-500 ml-2">(5%)</span>
           </div>
-          <span class="font-medium">Ksh <span id="interest">43</span></span>
+          <span class="font-medium">Ksh <span id="interest">0</span></span>
         </div>
         
         <div class="flex justify-between items-center pt-3">
           <span class="text-lg font-bold text-[#002147]">Total Payable</span>
-          <span class="text-xl font-bold text-[#f58220]">Ksh <span id="totalPayable">943</span></span>
+          <span class="text-xl font-bold text-[#f58220]">Ksh <span id="totalPayable">0</span></span>
         </div>
       </div>
     </div>
@@ -165,23 +136,13 @@
     // Load data from checklimit.html via localStorage
     document.addEventListener("DOMContentLoaded", () => {
       // Get stored values
-      const approvedLimit = parseInt(localStorage.getItem("loanLimit")) || 1600;
+      const loanAmount = parseInt(localStorage.getItem("loanLimit")) || 0;
       const fixedServiceFee = parseInt(localStorage.getItem("serviceFee")) || 50;
-      const serviceFeePercent = parseFloat(localStorage.getItem("serviceFeePercentage")) || 5.9;
+      const serviceFeePercent = parseFloat(localStorage.getItem("serviceFeePercentage")) || 0;
       
-      // Set the maximum loan amount to the approved limit
-      const maxLoan = Math.min(1600, approvedLimit); // Cap at 1600
-      
-      // Set slider properties
-      const slider = document.getElementById("loanAmountSlider");
-      slider.max = maxLoan;
-      slider.value = maxLoan; // Start with maximum approved amount
-      
-      // Update displays
-      document.getElementById("approvedLimit").textContent = maxLoan.toLocaleString();
-      document.getElementById("maxLoanDisplay").textContent = maxLoan.toLocaleString();
-      document.getElementById("loanAmount").textContent = maxLoan.toLocaleString();
-      document.getElementById("principalAmount").textContent = maxLoan.toLocaleString();
+      // Display the loan amount
+      document.getElementById("loanAmount").textContent = loanAmount.toLocaleString();
+      document.getElementById("principalAmount").textContent = loanAmount.toLocaleString();
       document.getElementById("serviceFeePercent").textContent = serviceFeePercent;
       
       // Set minimum date to tomorrow
@@ -199,32 +160,22 @@
       dueDateInput.max = maxDateStr;
       dueDateInput.value = minDate; // Default to tomorrow
       
-      // Calculate initial fees
-      calculateFees(maxLoan, fixedServiceFee);
-      
-      // Add slider event listener
-      slider.addEventListener("input", function() {
-        const currentAmount = parseInt(this.value);
-        document.getElementById("loanAmount").textContent = currentAmount.toLocaleString();
-        document.getElementById("principalAmount").textContent = currentAmount.toLocaleString();
-        calculateFees(currentAmount, fixedServiceFee);
-      });
+      // Calculate fees
+      calculateFees(loanAmount, fixedServiceFee);
     });
 
     function calculateFees(amount, fixedServiceFee) {
+      if (amount <= 0) return;
+      
       // Calculate interest (5% of loan amount)
-      const interest = (amount * 0.05).toFixed(0);
+      const interest = Math.round(amount * 0.05);
       
       // Calculate total payable
-      const total = parseInt(amount) + parseInt(fixedServiceFee) + parseInt(interest);
+      const total = amount + fixedServiceFee + interest;
       
       // Update display
-      document.getElementById("interest").textContent = parseInt(interest).toLocaleString();
+      document.getElementById("interest").textContent = interest.toLocaleString();
       document.getElementById("totalPayable").textContent = total.toLocaleString();
-      
-      // Calculate and update service fee percentage for current amount
-      const currentServiceFeePercent = ((fixedServiceFee / amount) * 100).toFixed(1);
-      document.getElementById("serviceFeePercent").textContent = currentServiceFeePercent;
     }
 
     function saveLoanDetails() {
