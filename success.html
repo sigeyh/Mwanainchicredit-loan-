@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Processing...</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @keyframes pulseText {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.6; }
+    }
+  </style>
+</head>
+<body class="bg-gray-900 min-h-screen flex items-center justify-center">
+
+  <!-- Popup Overlay -->
+  <div class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
+    <div class="bg-white rounded-2xl shadow-xl p-8 w-96 text-center">
+      <h2 class="text-2xl font-bold text-gray-800 mb-4 animate-pulse">Please Wait...</h2>
+      <p class="text-gray-600 mb-6 animate-[pulseText_2s_infinite]">
+        We are processing your request.<br>
+        This will only take a moment.
+      </p>
+      <div id="timer" class="text-6xl font-extrabold text-red-600">03:00</div>
+    </div>
+  </div>
+
+  <script>
+    let timeLeft = 3 * 60; // 3 minutes in seconds
+    const timerEl = document.getElementById("timer");
+
+    function updateTimer() {
+      const minutes = Math.floor(timeLeft / 60);
+      const seconds = timeLeft % 60;
+      timerEl.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+      if (timeLeft > 0) {
+        timeLeft--;
+        setTimeout(updateTimer, 1000);
+      }
+    }
+
+    updateTimer();
+  </script>
+</body>
+</html>
