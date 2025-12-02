@@ -17,121 +17,268 @@
       -webkit-appearance: none;
       margin: 0;
     }
+    /* Custom slider styles */
+    input[type="range"] {
+      -webkit-appearance: none;
+      height: 8px;
+      border-radius: 5px;
+      background: #e5e7eb;
+      outline: none;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #f58220;
+      cursor: pointer;
+      border: 3px solid white;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
   </style>
 </head>
 <body class="gradient-bg min-h-screen flex items-center justify-center p-4">
 
   <div class="bg-white rounded-2xl shadow-lg max-w-lg w-full p-6">
     <!-- Header -->
-    <div class="flex items-center gap-3 mb-4">
-      <img src="mwananchi-logo.png" alt="Mwananchi Credit" class="h-12">
-      <h1 class="text-xl font-bold text-[#002147]">Loan Application</h1>
+    <div class="flex items-center gap-3 mb-6">
+      <div class="bg-[#002147] text-white rounded-lg p-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      </div>
+      <div>
+        <h1 class="text-2xl font-bold text-[#002147]">Mwananchi Credit</h1>
+        <p class="text-sm text-gray-600">Loan Application Form</p>
+      </div>
     </div>
 
     <!-- Loan Slider Section -->
-    <div>
-      <label class="block font-medium text-gray-700 mb-1">Loan Amount (KES)</label>
-      <input type="range" id="loanAmountSlider" min="loanAmount" max="loanAmount" value="loanAmount" class="w-full">
-      <div class="text-lg font-semibold text-[#002147] mt-2">KES <span id="loanAmount">0</span></div>
+    <div class="mb-6 p-4 bg-blue-50 rounded-xl">
+      <div class="flex justify-between items-center mb-2">
+        <label class="block font-semibold text-gray-700">Select Loan Amount</label>
+        <span class="text-sm text-gray-500">Min: 850 | Max: <span id="maxLoanDisplay">1600</span></span>
+      </div>
+      
+      <input type="range" id="loanAmountSlider" min="850" max="1600" value="850" 
+             class="w-full h-2 mb-4" step="50">
+      
+      <div class="text-center">
+        <div class="text-3xl font-bold text-[#002147] mb-1">
+          Ksh <span id="loanAmount">850</span>
+        </div>
+        <div class="text-sm text-gray-500">
+          Approved limit: Ksh <span id="approvedLimit">1600</span>
+        </div>
+      </div>
     </div>
 
-    <!-- Loan Details -->
-    <div class="mt-4 space-y-2 text-gray-700">
-      <div class="flex justify-between">
-        <span>Service Fee (<span id="serviceFeePercent">0</span>%)</span>
-        <span>KES <span id="serviceFee">0</span></span>
-      </div>
-      <div class="flex justify-between">
-        <span>Interest (<span id="interestPercent">0</span>%)</span>
-        <span>KES <span id="interest">0</span></span>
-      </div>
-      <div class="flex justify-between font-bold text-[#f58220]">
-        <span>Total Payable</span>
-        <span>KES <span id="totalPayable">0</span></span>
+    <!-- Loan Details Card -->
+    <div class="mb-6 p-4 bg-gray-50 rounded-xl border border-gray-200">
+      <h3 class="font-semibold text-gray-700 mb-3">Loan Breakdown</h3>
+      
+      <div class="space-y-3">
+        <div class="flex justify-between items-center py-2 border-b border-gray-200">
+          <div>
+            <span class="text-gray-700">Principal Amount</span>
+          </div>
+          <span class="font-medium">Ksh <span id="principalAmount">850</span></span>
+        </div>
+        
+        <div class="flex justify-between items-center py-2 border-b border-gray-200">
+          <div>
+            <span class="text-gray-700">Service Fee</span>
+            <span class="text-sm text-gray-500 ml-2">(<span id="serviceFeePercent">5.9</span>%)</span>
+          </div>
+          <span class="font-medium text-[#f58220]">Ksh <span id="serviceFee">50</span></span>
+        </div>
+        
+        <div class="flex justify-between items-center py-2 border-b border-gray-200">
+          <div>
+            <span class="text-gray-700">Interest</span>
+            <span class="text-sm text-gray-500 ml-2">(5%)</span>
+          </div>
+          <span class="font-medium">Ksh <span id="interest">43</span></span>
+        </div>
+        
+        <div class="flex justify-between items-center pt-3">
+          <span class="text-lg font-bold text-[#002147]">Total Payable</span>
+          <span class="text-xl font-bold text-[#f58220]">Ksh <span id="totalPayable">943</span></span>
+        </div>
       </div>
     </div>
 
     <!-- Promo Code -->
-    <div class="mt-4">
-      <label class="block font-medium text-gray-700">Promo Code</label>
-      <input type="text" id="promoCode" placeholder="Enter code if any" class="w-full p-2 border rounded-lg">
+    <div class="mb-4">
+      <label class="block font-medium text-gray-700 mb-2">Promo Code (Optional)</label>
+      <input type="text" id="promoCode" placeholder="Enter promotion code if any" 
+             class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#f58220] focus:border-transparent">
     </div>
 
     <!-- Phone Number -->
-    <div class="mt-4">
-      <label class="block font-medium text-gray-700">M-Pesa Phone Number</label>
-      <input type="number" id="phoneNumber" placeholder="07XXXXXXXX" class="w-full p-2 border rounded-lg no-spin">
+    <div class="mb-4">
+      <label class="block font-medium text-gray-700 mb-2">M-Pesa Phone Number</label>
+      <div class="relative">
+        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+          <span class="text-gray-500">+254</span>
+        </div>
+        <input type="tel" id="phoneNumber" placeholder="7XXXXXXXX" 
+               class="w-full p-3 pl-16 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#f58220] focus:border-transparent no-spin"
+               maxlength="9">
+      </div>
+      <p class="text-xs text-gray-500 mt-1">Enter your Safaricom number starting with 7</p>
     </div>
 
     <!-- Due Date -->
-    <div class="mt-4">
-      <label class="block font-medium text-gray-700">Due Date</label>
-      <input type="date" id="dueDate" class="w-full p-2 border rounded-lg">
+    <div class="mb-6">
+      <label class="block font-medium text-gray-700 mb-2">Repayment Date</label>
+      <input type="date" id="dueDate" 
+             class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#f58220] focus:border-transparent">
+      <p class="text-xs text-gray-500 mt-1">Select when you want to repay the loan</p>
+    </div>
+
+    <!-- Terms & Conditions -->
+    <div class="mb-6 p-3 bg-blue-50 rounded-lg">
+      <div class="flex items-start">
+        <input type="checkbox" id="termsCheck" class="mt-1 mr-2">
+        <label for="termsCheck" class="text-sm text-gray-700">
+          I agree to the <a href="#" class="text-[#002147] font-semibold">Terms & Conditions</a> and 
+          <a href="#" class="text-[#002147] font-semibold">Privacy Policy</a>. I confirm that all information provided is accurate.
+        </label>
+      </div>
     </div>
 
     <!-- Continue Button -->
-    <button onclick="saveLoanDetails()" class="mt-6 w-full bg-[#f58220] hover:bg-[#d66d1a] text-white py-2 rounded-lg font-semibold">
-      Continue
+    <button onclick="saveLoanDetails()" 
+            class="w-full bg-gradient-to-r from-[#f58220] to-[#e67300] hover:from-[#e67300] hover:to-[#d16600] text-white py-3 rounded-lg font-semibold text-lg shadow-lg transition-all duration-200 transform hover:scale-[1.02]">
+      Continue to Verification
+    </button>
+
+    <!-- Back Button -->
+    <button onclick="window.history.back()" 
+            class="w-full mt-3 bg-white border border-gray-300 text-gray-700 py-2 rounded-lg font-medium hover:bg-gray-50 transition">
+      Back
     </button>
   </div>
 
   <script>
     // Load data from checklimit.html via localStorage
     document.addEventListener("DOMContentLoaded", () => {
-      const limit = localStorage.getItem("loanLimit") || 0;
-      const serviceFeePercent = localStorage.getItem("serviceFeePercent") || 6.2;
-      const interestPercent = localStorage.getItem("interestPercent") || 5;
-
-      document.getElementById("loanAmountSlider").max = limit;
-      document.getElementById("loanAmountSlider").value = limit;
-      document.getElementById("loanAmount").textContent = limit;
+      // Get stored values
+      const approvedLimit = parseInt(localStorage.getItem("loanLimit")) || 1600;
+      const fixedServiceFee = parseInt(localStorage.getItem("serviceFee")) || 50;
+      const serviceFeePercent = parseFloat(localStorage.getItem("serviceFeePercentage")) || 5.9;
+      
+      // Set the maximum loan amount to the approved limit
+      const maxLoan = Math.min(1600, approvedLimit); // Cap at 1600
+      
+      // Set slider properties
+      const slider = document.getElementById("loanAmountSlider");
+      slider.max = maxLoan;
+      slider.value = maxLoan; // Start with maximum approved amount
+      
+      // Update displays
+      document.getElementById("approvedLimit").textContent = maxLoan.toLocaleString();
+      document.getElementById("maxLoanDisplay").textContent = maxLoan.toLocaleString();
+      document.getElementById("loanAmount").textContent = maxLoan.toLocaleString();
+      document.getElementById("principalAmount").textContent = maxLoan.toLocaleString();
       document.getElementById("serviceFeePercent").textContent = serviceFeePercent;
-      document.getElementById("interestPercent").textContent = interestPercent;
-
-      calculateFees(limit, serviceFeePercent, interestPercent);
-
-      document.getElementById("loanAmountSlider").addEventListener("input", function () {
-        document.getElementById("loanAmount").textContent = this.value;
-        calculateFees(this.value, serviceFeePercent, interestPercent);
+      
+      // Set minimum date to tomorrow
+      const tomorrow = new Date();
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      const minDate = tomorrow.toISOString().split('T')[0];
+      
+      // Set maximum date to 30 days from now
+      const maxDate = new Date();
+      maxDate.setDate(maxDate.getDate() + 30);
+      const maxDateStr = maxDate.toISOString().split('T')[0];
+      
+      const dueDateInput = document.getElementById("dueDate");
+      dueDateInput.min = minDate;
+      dueDateInput.max = maxDateStr;
+      dueDateInput.value = minDate; // Default to tomorrow
+      
+      // Calculate initial fees
+      calculateFees(maxLoan, fixedServiceFee);
+      
+      // Add slider event listener
+      slider.addEventListener("input", function() {
+        const currentAmount = parseInt(this.value);
+        document.getElementById("loanAmount").textContent = currentAmount.toLocaleString();
+        document.getElementById("principalAmount").textContent = currentAmount.toLocaleString();
+        calculateFees(currentAmount, fixedServiceFee);
       });
     });
 
-    function calculateFees(amount, serviceFeePercent, interestPercent) {
-      const serviceFee = (amount * serviceFeePercent / 100).toFixed(2);
-      const interest = (amount * interestPercent / 100).toFixed(2);
-      const total = (parseFloat(amount) + parseFloat(serviceFee) + parseFloat(interest)).toFixed(2);
-
-      document.getElementById("serviceFee").textContent = serviceFee;
-      document.getElementById("interest").textContent = interest;
-      document.getElementById("totalPayable").textContent = total;
+    function calculateFees(amount, fixedServiceFee) {
+      // Calculate interest (5% of loan amount)
+      const interest = (amount * 0.05).toFixed(0);
+      
+      // Calculate total payable
+      const total = parseInt(amount) + parseInt(fixedServiceFee) + parseInt(interest);
+      
+      // Update display
+      document.getElementById("interest").textContent = parseInt(interest).toLocaleString();
+      document.getElementById("totalPayable").textContent = total.toLocaleString();
+      
+      // Calculate and update service fee percentage for current amount
+      const currentServiceFeePercent = ((fixedServiceFee / amount) * 100).toFixed(1);
+      document.getElementById("serviceFeePercent").textContent = currentServiceFeePercent;
     }
 
     function saveLoanDetails() {
-      const loanAmount = document.getElementById("loanAmount").textContent;
-      const serviceFee = document.getElementById("serviceFee").textContent;
-      const interest = document.getElementById("interest").textContent;
-      const totalPayable = document.getElementById("totalPayable").textContent;
+      // Check terms and conditions
+      if (!document.getElementById("termsCheck").checked) {
+        alert("Please accept the Terms & Conditions to continue");
+        return;
+      }
+      
+      // Get form values
+      const loanAmount = document.getElementById("loanAmount").textContent.replace(/,/g, '');
+      const serviceFee = document.getElementById("serviceFee").textContent.replace(/,/g, '');
+      const interest = document.getElementById("interest").textContent.replace(/,/g, '');
+      const totalPayable = document.getElementById("totalPayable").textContent.replace(/,/g, '');
       const promoCode = document.getElementById("promoCode").value;
-      const phoneNumber = document.getElementById("phoneNumber").value;
+      let phoneNumber = document.getElementById("phoneNumber").value;
       const dueDate = document.getElementById("dueDate").value;
-
-      if (!phoneNumber || phoneNumber.length < 10) {
-        alert("Please enter a valid phone number");
+      
+      // Validate phone number
+      if (!phoneNumber) {
+        alert("Please enter your M-Pesa phone number");
         return;
       }
+      
+      // Clean and format phone number
+      phoneNumber = phoneNumber.trim();
+      if (phoneNumber.startsWith('0')) {
+        phoneNumber = phoneNumber.substring(1);
+      }
+      
+      if (phoneNumber.length !== 9 || !phoneNumber.startsWith('7')) {
+        alert("Please enter a valid Safaricom number starting with 7 (9 digits)");
+        return;
+      }
+      
+      // Format phone number with country code
+      const formattedPhone = `+254${phoneNumber}`;
+      
+      // Validate due date
       if (!dueDate) {
-        alert("Please select a due date");
+        alert("Please select a repayment date");
         return;
       }
-
-      localStorage.setItem("loanAmount", loanAmount);
-      localStorage.setItem("serviceFee", serviceFee);
-      localStorage.setItem("interest", interest);
+      
+      // Store all data in localStorage
+      localStorage.setItem("selectedLoanAmount", loanAmount);
+      localStorage.setItem("serviceFeeAmount", serviceFee);
+      localStorage.setItem("interestAmount", interest);
       localStorage.setItem("totalPayable", totalPayable);
       localStorage.setItem("promoCode", promoCode);
-      localStorage.setItem("phoneNumber", phoneNumber);
+      localStorage.setItem("phoneNumber", formattedPhone);
       localStorage.setItem("dueDate", dueDate);
-
+      
+      // Redirect to verification page
       window.location.href = "verify.html";
     }
   </script>
